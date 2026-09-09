@@ -1,0 +1,167 @@
+@import "tailwindcss";
+
+@theme {
+  --font-sans: "Space Grotesk", ui-sans-serif, system-ui, sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, monospace;
+
+  --color-bg: #050a08;
+  --color-bg2: #081210;
+  --color-panel: #0a1713;
+  --color-panel2: #0d1d18;
+  --color-line: #123529;
+  --color-green: #2affb3;
+  --color-green-dim: #7fffcf;
+  --color-cyan: #2dd6ff;
+  --color-cyan-dim: #8fe7ff;
+  --color-amber: #ffd166;
+  --color-magenta: #c86bff;
+  --color-ink: #d7e7e0;
+  --color-ink-dim: #8aa79c;
+  --color-dim: #5c7a6e;
+}
+
+:root {
+  --bg: #050a08;
+}
+
+* {
+  scrollbar-width: thin;
+  scrollbar-color: #124637 transparent;
+}
+
+::-webkit-scrollbar { width: 9px; height: 9px; }
+::-webkit-scrollbar-track { background: #071009; }
+::-webkit-scrollbar-thumb { background: #124637; border-radius: 9px; }
+::-webkit-scrollbar-thumb:hover { background: #1b6d53; }
+
+html {
+  scroll-behavior: smooth;
+}
+
+section[id] {
+  scroll-margin-top: 84px;
+}
+
+body {
+  background: #050a08;
+  color: #d7e7e0;
+  font-family: "Space Grotesk", ui-sans-serif, system-ui, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+}
+
+.font-mono, code, pre {
+  font-family: "JetBrains Mono", ui-monospace, monospace;
+}
+
+/* Subtle terminal grid overlay */
+.grid-bg {
+  background-image:
+    linear-gradient(to right, rgba(26, 217, 138, 0.045) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(26, 217, 138, 0.045) 1px, transparent 1px);
+  background-size: 42px 42px;
+}
+
+.noise::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0.5;
+  background-image: repeating-linear-gradient(
+      0deg,
+      rgba(0, 0, 0, 0.08) 0px,
+      rgba(0, 0, 0, 0.08) 1px,
+      transparent 1px,
+      transparent 3px
+    );
+  z-index: 1;
+}
+
+/* Blinking block cursor */
+.cursor-block {
+  display: inline-block;
+  width: 0.62em;
+  height: 1.05em;
+  background: #2affb3;
+  vertical-align: text-bottom;
+  margin-left: 0.15em;
+  animation: blink 1.05s steps(1) infinite;
+  box-shadow: 0 0 12px rgba(42, 255, 179, 0.75);
+}
+
+@keyframes blink {
+  0%, 50% { opacity: 1; }
+  50.01%, 100% { opacity: 0; }
+}
+
+/* terminal line cursor */
+.tcursor {
+  display: inline-block;
+  width: 0.55em;
+  height: 1em;
+  background: #2dd6ff;
+  vertical-align: text-bottom;
+  animation: blink 0.95s steps(1) infinite;
+}
+
+/* Typing reveal */
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(18px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.reveal {
+  opacity: 0;
+}
+.reveal-visible {
+  opacity: 1;
+  animation: fadeUp 0.7s ease forwards;
+}
+
+.reveal-up {
+  animation: fadeUp 0.8s ease forwards;
+}
+
+@keyframes tickerGlow {
+  0%, 100% { opacity: 0.5; }
+  50% { opacity: 1; }
+}
+
+.pulse-dot {
+  animation: tickerGlow 1.8s ease-in-out infinite;
+}
+
+@keyframes scanline {
+  0% { transform: translateY(-100%); }
+  100% { transform: translateY(1000%); }
+}
+
+.scanline {
+  animation: scanline 9s linear infinite;
+}
+
+/* text glow helpers */
+.glow-green { text-shadow: 0 0 18px rgba(42, 255, 179, 0.45); }
+.glow-cyan { text-shadow: 0 0 22px rgba(45, 214, 255, 0.45); }
+
+/* Code card */
+.code-card {
+  background: linear-gradient(160deg, rgba(13, 29, 24, 0.9), rgba(6, 13, 11, 0.95));
+  border: 1px solid #123529;
+  border-radius: 14px;
+}
+
+.border-grad {
+  border: 1px solid transparent;
+  background:
+    linear-gradient(#081210, #081210) padding-box,
+    linear-gradient(135deg, rgba(42,255,179,0.35), rgba(45,214,255,0.25), transparent) border-box;
+}
+
+/* selection */
+::selection { background: rgba(42, 255, 179, 0.28); color: #eafff5; }
+
+@media (prefers-reduced-motion: reduce) {
+  * { animation-duration: 0.001ms !important; scroll-behavior: auto !important; }
+}
